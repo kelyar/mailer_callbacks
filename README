@@ -1,4 +1,4 @@
-I had a task to save all emails we send to user - not content, of course, but at least email and subject (or template). It's pretty useful if you send lots of emails to know which ones this particular user received. 
+I had a task to save all emails we send to user - not content, of course, but at least email and subject (or template). It's pretty useful if you send lots of emails and want to know which ones this particular user received. 
 
 Easy way was to put some SentMailLog.create() in the end of every method of ActionMailer::Base ancestors. Doesn't look really DRY, but it will work. I looked thru ActionMailer API but there were no hooks like AR or even ActionController has. That's why I wrote this tiny 1Kb extension to AM that adds `after_deliver` callback for my Notifier class.
 
