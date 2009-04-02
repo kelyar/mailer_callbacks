@@ -1,3 +1,7 @@
+Mailer Callbacks
+================
+
+
 I had a task to save all emails we send to user - not content, of course, but at least email and subject (or template). It's pretty useful if you send lots of emails and want to know which ones this particular user received. 
 
 Easy way was to put some SentMailLog.create() in the end of every method of ActionMailer::Base ancestors. Doesn't look really DRY, but it will work. I looked thru ActionMailer API but there were no hooks like AR or even ActionController has. That's why I wrote this tiny 1Kb extension to AM that adds `after_deliver` callback for my Notifier class.
@@ -6,23 +10,25 @@ Right after that I plugged in open_id_authentication which is great but many mor
 
 Many use cases can be found: you can mark your users as bounced if there are problems with their email accounts - no emails should be sent to them. Or you can have `unsubscribe all our news` flag like we have. This can also be verified in "before_deliver".
 
-TODO:
-- add usual [:except, :only] params
-- yield if block_given?
-- add some tests
-
-ok, no more words, here is the sample:
+ok, no more words, here is the CODE:
 
 class Notifier < ActionMailer::Base
   before_deliver :openid_stub?
   after_deliver :save_email
 
-  def openid_stub?(tmail)
-    !tmail.to.to_s.include?('openidstub')
+  def openid_stub?
+    self.to.to_s.include?('openidstub')
   end
 
-  def save_email(tmail)
+  def save_email
     ...
-    SentMailLog.create(:email=>tmail.to.join(","), :subj => tmail.subject)
+    SentMailLog.create(:email=>self.to.join(","), :subj => tmail.subject)
   end
 end
+
+TODO:
+- add usual [:except, :only] params
+- yield if block_given?
+--add some tests-- DONE
+
+Copyright (c) 2008 Evgeniy Kelyarsky, released under the MIT license
