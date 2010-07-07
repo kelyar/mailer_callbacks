@@ -3,7 +3,7 @@ module MailerCallbacks
   def self.included(base)
     base.class_eval do
       include ActiveSupport::Callbacks
-      alias_method :deliverorig!, :deliver!
+      alias_method :deliverorig!, :deliver! unless method_defined?(:deliverorig!)
       define_callbacks :before_deliver, :after_deliver
 
       def deliver!(mail=@mail)
