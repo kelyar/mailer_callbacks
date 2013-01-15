@@ -25,7 +25,8 @@ class Notifier < ActionMailer::Base
     ...
     SentMailLog.create(:email=>@recipients.join(","), :subj => @subject)
   end
-end```
+end
+```
 
 TODO:
 - add usual [:except, :only] params
