@@ -29,8 +29,9 @@ end
 ```
 
 TODO:
+- run on new action_mailer
 - add usual [:except, :only] params
 - yield if block_given?
---add some tests-- DONE
+- <strike>add some tests</strike>-- DONE
 
 Copyright (c) 2008 Evgeniy Kelyarsky, released under the MIT license
