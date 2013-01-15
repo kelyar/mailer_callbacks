@@ -12,6 +12,7 @@ Many use cases can be found: you can mark your users as bounced if there are pro
 
 ok, no more words, here is the CODE:
 
+```ruby
 class Notifier < ActionMailer::Base
   before_deliver :openid_stub?
   after_deliver :save_email
@@ -24,7 +25,7 @@ class Notifier < ActionMailer::Base
     ...
     SentMailLog.create(:email=>@recipients.join(","), :subj => @subject)
   end
-end
+end```
 
 TODO:
 - add usual [:except, :only] params
