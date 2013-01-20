@@ -10,4 +10,3 @@ require 'mailer_callbacks'
 class ActionMailer::Base
   include MailerCallbacks
 end
-  

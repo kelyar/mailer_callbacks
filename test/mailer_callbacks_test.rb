@@ -10,7 +10,7 @@ class MailerCallbacksTest < ActionMailer::TestCase
     @recipient = 'test@localhost'
   end
 
-  test "before forbid" do
+  test "before: forbid" do
     Notifier.class_eval do
       def start() false; end
     end
@@ -20,7 +20,7 @@ class MailerCallbacksTest < ActionMailer::TestCase
     end
   end
 
-  test "before_grant" do
+  test "before: grant" do
     Notifier.class_eval do
       def start() true; end
     end
