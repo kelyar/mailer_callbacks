@@ -23,7 +23,7 @@ class Notifier < ActionMailer::Base
 
   def save_email
     ...
-    SentMailLog.create(:email=>@recipients.join(","), :subj => @subject)
+    SentMailLog.create(email: @recipients.join(','), subj: @subject)
   end
 end
 ```
@@ -32,6 +32,6 @@ TODO:
 - run on new action_mailer
 - add usual [:except, :only] params
 - yield if block_given?
-- <strike>add some tests</strike>-- DONE
+- <del>add some tests</del> DONE
 
 Copyright (c) 2008 Evgeniy Kelyarsky, released under the MIT license
