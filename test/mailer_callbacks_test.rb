@@ -16,7 +16,7 @@ class MailerCallbacksTest < ActionMailer::TestCase
     end
 
     assert_emails(0) do
-      Notifier.deliver_run
+      Notifier.run
     end
   end
 
@@ -26,20 +26,21 @@ class MailerCallbacksTest < ActionMailer::TestCase
     end
 
     assert_emails(1) do
-      Notifier.deliver_run
+      Notifier.run
     end
   end
 end
 
 class Notifier < ActionMailer::Base
 
-  before_deliver :start
-  after_deliver :stop
+  def before_deliver; start end
+  def after_deliver; stop end
 
   def run
-    recipients "test@example.com"
-    from       "tester@example.com"
-    body render(:inline => 'test',:body=>'zhenya',:layout =>false)
+    to    = "test@example.com"
+    from  = "tester@example.com"
+    body  = render(inline: 'test', body: 'zhenya', layout: false)
+    mail(:to => to, :body => body, :from => from)
   end
 
   def start
