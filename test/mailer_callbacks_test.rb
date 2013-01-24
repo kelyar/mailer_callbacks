@@ -16,25 +16,23 @@ class MailerCallbacksTest < ActionMailer::TestCase
     end
 
     assert_emails(0) do
-      Notifier.run
+      Notifier.run.deliver
     end
   end
 
   test "before: grant" do
     Notifier.class_eval do
-      def start() true; end
+      def start; true end
     end
 
     assert_emails(1) do
-      Notifier.run
+      Notifier.run.deliver
     end
   end
 end
 
 class Notifier < ActionMailer::Base
 
-  def before_deliver; start end
-  def after_deliver; stop end
 
   def run
     to    = "test@example.com"
@@ -43,10 +41,14 @@ class Notifier < ActionMailer::Base
     mail(:to => to, :body => body, :from => from)
   end
 
+  private
   def start
   end
 
   def stop
   end
+
+  before_deliver :start, :except => [:index ]
+  after_deliver :stop
 end
 
