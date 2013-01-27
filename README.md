@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kelyar/mailer_callbacks.png)](https://travis-ci.org/kelyar/mailer_callbacks)
+
 Mailer Callbacks
 ================
 
