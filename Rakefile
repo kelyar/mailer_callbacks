@@ -1,6 +1,10 @@
 require 'rake'
 require 'rake/testtask'
-require 'rdoc/task'
+if RUBY_VERSION > "1.9.0"
+  require 'rdoc/task'
+else
+  require 'rake/rdoctask'
+end
 
 desc 'Default: run unit tests.'
 task :default => :test
