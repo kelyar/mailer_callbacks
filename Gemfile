@@ -4,6 +4,7 @@ gemspec
 
 group :test do
   gem 'rake'
+  gem 'turn'
 end
 
 gem 'actionmailer'
