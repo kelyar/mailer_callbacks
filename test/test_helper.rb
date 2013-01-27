@@ -7,6 +7,8 @@ require 'action_mailer'
 
 require 'mailer_callbacks'
 
+ActionMailer::Base.logger = Logger.new("mailer.log")
+
 Turn.config do |c|
  # use one of output formats:
  # :outline  - turn's original case/test outline mode [default]
