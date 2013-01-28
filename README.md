@@ -8,11 +8,11 @@ I had a task to save all emails we send to user - not content, of course, but at
 
 Easy way was to put some SentMailLog.create() in the end of every method of ActionMailer::Base ancestors. Doesn't look really DRY, but it will work. I looked thru ActionMailer API but there were no hooks like AR or even ActionController has. That's why I wrote this tiny 1Kb extension to AM that adds `after_deliver` callback for my Notifier class.
 
-Right after that I plugged in open_id_authentication which is great but many more issues came out. It appears that my users no longer have emails because they could register with openid and some providers just ignore `required => {:email}`. I had to add "unless User.current_user.openid?" to all of my deliver_* methods.  That's when `before_deliver` saved me. If any of your actions specified in before_deliver method returns false, no email will be sent. But no one cares what your after_deliver returns. It's pretty similar to ActiveRecord's before_save/after_save callbacks.
+Right after that I plugged in open_id_authentication which is great but many more issues came out. It appears that my users no longer have emails because they could register with openid and some providers just ignore `required => {:email}`. I had to add `unless User.current_user.openid?` to all of my deliver_* methods.  That's when `before_deliver` saved me. If any of your actions specified in `before_deliver` method returns false, no email will be sent. But no one cares what your `after_deliver` returns. It's pretty similar to ActiveRecord's before_save/after_save callbacks.
 
-Many use cases can be found: you can mark your users as bounced if there are problems with their email accounts - no emails should be sent to them. Or you can have `unsubscribe all our news` flag like we have. This can also be verified in "before_deliver". If you need to access email data just use instance variables inside your callbacks, like @subject, @recipients, @body,etc.
+Many use cases can be found: you can mark your users as bounced if there are problems with their email accounts - no emails should be sent to them. Or you can have `unsubscribe all our news` flag like we have. This can also be verified in `before_deliver`. If you need to access email data just use instance variables inside your callbacks, like `@subject, @recipients, @body`,etc.
 
-ok, no more words, here is the CODE:
+ok, no more words, here is the code:
 
 ```ruby
 class Notifier < ActionMailer::Base
@@ -31,9 +31,9 @@ end
 ```
 
 TODO:
-- run on new action_mailer
+- <del>run on new action_mailer</del> DONE
 - add usual [:except, :only] params
 - yield if block_given?
 - <del>add some tests</del> DONE
 
-Copyright (c) 2008 Evgeniy Kelyarsky, released under the MIT license
+Copyright (c) 2008-2013 Evgeniy Kelyarsky, released under the MIT license
