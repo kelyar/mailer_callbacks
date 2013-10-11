@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name            = "MailerCallbacks"
+  s.name            = "mailer_callbacks"
   s.version         = "2.0.0a"
   s.platform        = Gem::Platform::RUBY
   s.summary         = "Mailer callbacks"
@@ -9,7 +9,7 @@ Small set of callbacks that can be useful if you do pre-post mail processing
 EOF
 
   s.files           = Dir['{lib/**/*,test/**/*}'] +
-                        %w(mailer_callbacks.gemspec Rakefile README)
+                        %w(mailer_callbacks.gemspec Rakefile README.md)
   s.require_path    = 'lib'
   s.test_files      = Dir['test/*_test.rb']
 
