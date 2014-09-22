@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    MailerCallbacks (2.0.0a)
+    mailer_callbacks (2.0.0a)
 
 GEM
   remote: https://rubygems.org/
@@ -60,8 +60,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  MailerCallbacks!
   actionmailer
   activesupport
+  mailer_callbacks!
   rake
   turn
